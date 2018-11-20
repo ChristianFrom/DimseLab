@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DimseLab
 {
@@ -10,7 +11,7 @@ namespace DimseLab
 
         public string Name { get; set; }
         public string Description { get; set; }
-        
+        public ViewModel MpViewModel;
 
         ObservableCollection<Deltager> deltager = new ObservableCollection<Deltager>();
         ObservableCollection<Dims> dims = new ObservableCollection<Dims>();
@@ -22,6 +23,26 @@ namespace DimseLab
             Description = description;
             deltager = deltagere;
             dims = dimser;
+        }
+
+        public Projekt()
+        {
+            
+        }
+
+
+        //Metoder
+        public void AddDimse()
+        {
+            MpViewModel.SelectedProject.Dims.Add(new Dims(MpViewModel.DimseNameBox, MpViewModel.KeywordBox, MpViewModel.LendingDateBox, MpViewModel.DueDateBox));
+        }
+        public void AddProject()
+        {
+            MpViewModel.Projekter.Add(new Projekt(MpViewModel.ProjectBox, MpViewModel.DescriptionBox, new ObservableCollection<Deltager>(), new ObservableCollection<Dims>()));
+        }
+        public void AddParticipant()
+        {          
+            MpViewModel.SelectedProject.Deltager1.Add(new Deltager(MpViewModel.ParticipantBox, MpViewModel.EmailBox));
         }
 
         public ObservableCollection<Deltager> Deltager1

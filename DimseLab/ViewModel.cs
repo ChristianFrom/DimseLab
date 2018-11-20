@@ -26,6 +26,8 @@ namespace DimseLab
        public string keywordBox;
        public DateTime lendingDateBox;
        public DateTime dueDateBox;
+
+       public Projekt EmptyProjekt = new Projekt();
           
        ObservableCollection<Projekt> projekter = new ObservableCollection<Projekt>();
 
@@ -34,25 +36,14 @@ namespace DimseLab
         {           
             projekter.Add(new Projekt("Robot", "Den overtager verden på et tidspunkt.", new ObservableCollection<Deltager>(){new Deltager("Christian", "bitchass@gmail.com")}, new ObservableCollection<Dims>(){new Dims("Skruetrækker", "keywords", DateTime.Today, DateTime.Now)}));
             projekter.Add(new Projekt("PC", "Spil Crysis 4k", new ObservableCollection<Deltager>(){new Deltager("Daniel", "bitch2131ass@gmail.com")}, new ObservableCollection<Dims>(){new Dims("LoddeKolbe", "keywords", DateTime.Today, DateTime.Now)}));
-            
-            AddProjectRelayCommand = new RelayCommand(AddProject);
-            AddParticipantRelayCommand = new RelayCommand(AddParticipant);
-            AddDimseRelayCommand = new RelayCommand(AddDimse);
+
+            EmptyProjekt.MpViewModel = this;
+            AddProjectRelayCommand = new RelayCommand(EmptyProjekt.AddProject);
+            AddParticipantRelayCommand = new RelayCommand(EmptyProjekt.AddParticipant);
+            AddDimseRelayCommand = new RelayCommand(EmptyProjekt.AddDimse);
         }
 
-        //Metoder
-        public void AddDimse()
-        {
-            SelectedProject.Dims.Add(new Dims(DimseNameBox, KeywordBox, LendingDateBox, DueDateBox));
-        }
-        public void AddProject()
-        {
-            projekter.Add(new Projekt(ProjectBox, DescriptionBox, new ObservableCollection<Deltager>(), new ObservableCollection<Dims>()));
-        }
-        public void AddParticipant()
-        {          
-           SelectedProject.Deltager1.Add(new Deltager(ParticipantBox, EmailBox));
-        }
+   
 
         //Properties
         public ObservableCollection<Projekt> Projekter

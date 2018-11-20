@@ -10,9 +10,6 @@
             _name = name;
             _email = email;
         }
-
-
-
-
+        
     }
 }
