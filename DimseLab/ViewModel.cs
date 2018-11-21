@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight.Command;
 
 namespace DimseLab
@@ -24,18 +25,23 @@ namespace DimseLab
        public string emailBox;
        public string dimseNameBox;
        public string keywordBox;
-       public DateTime lendingDateBox;
-       public DateTime dueDateBox;
-
+       public DateTime LendingDateBox;
+       public DateTime DueDateBox;
+       public int projectNumber = 0;
+       
+       
+    
+       
+     
        public Projekt EmptyProjekt = new Projekt();
           
        ObservableCollection<Projekt> projekter = new ObservableCollection<Projekt>();
 
      
         public ViewModel()
-        {           
-            projekter.Add(new Projekt("Robot", "Den overtager verden på et tidspunkt.", new ObservableCollection<Deltager>(){new Deltager("Christian", "bitchass@gmail.com")}, new ObservableCollection<Dims>(){new Dims("Skruetrækker", "keywords", DateTime.Today, DateTime.Now)}));
-            projekter.Add(new Projekt("PC", "Spil Crysis 4k", new ObservableCollection<Deltager>(){new Deltager("Daniel", "bitch2131ass@gmail.com")}, new ObservableCollection<Dims>(){new Dims("LoddeKolbe", "keywords", DateTime.Today, DateTime.Now)}));
+        {   selectedProject = new Projekt();
+            projekter.Add(new Projekt("Robot", GiveNumber(), "Den overtager verden på et tidspunkt.", new ObservableCollection<Deltager>(){new Deltager("Christian", "bitchass@gmail.com")}, new ObservableCollection<Dims>(){new Dims("Skruetrækker", "keywords", DateTime.Now, DateTime.Today)}, DateTime.Now.ToString("d"), _projektEndDate));
+            projekter.Add(new Projekt("PC", GiveNumber(), "Spil Crysis 4k", new ObservableCollection<Deltager>(){new Deltager("Daniel", "bitch2131ass@gmail.com")}, new ObservableCollection<Dims>(){new Dims("LoddeKolbe", "keywords", DateTime.Now, DateTime.Today)}, DateTime.Now.ToString("d"), _projektEndDate));
 
             EmptyProjekt.MpViewModel = this;
             AddProjectRelayCommand = new RelayCommand(EmptyProjekt.AddProject);
@@ -43,8 +49,14 @@ namespace DimseLab
             AddDimseRelayCommand = new RelayCommand(EmptyProjekt.AddDimse);
         }
 
-   
+       
 
+        public int GiveNumber()
+        {
+            ProjectNumber++;
+            return ProjectNumber;
+        }
+       
         //Properties
         public ObservableCollection<Projekt> Projekter
         {
@@ -94,17 +106,14 @@ namespace DimseLab
             get { return keywordBox; }
             set { keywordBox = value; }
         }
-        public DateTime LendingDateBox
+        
+        public int ProjectNumber
         {
-            get { return lendingDateBox; }
-            set { lendingDateBox = value; }
-        }
-        public DateTime DueDateBox
-        {
-            get { return dueDateBox; }
-            set { dueDateBox = value; }
+            get { return projectNumber; }
+            set { projectNumber = value; }
         }
 
+  
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -112,5 +121,7 @@ namespace DimseLab
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        
     }
 }

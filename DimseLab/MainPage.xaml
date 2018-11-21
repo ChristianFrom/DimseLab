@@ -13,18 +13,28 @@
 
 
   <Grid>
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50">
 
           <!--Boksen med projekter og tilføj knappen-->     
         <StackPanel Orientation="Vertical">
             <TextBlock Text="Projekter" FontSize="30" FontWeight="SemiBold"></TextBlock>
-            <ListView Margin="10,0,10,0" ItemsSource="{Binding Projekter}" SelectedItem="{Binding SelectedProject, Mode=TwoWay}" Height="200" Width="300" BorderThickness="1" BorderBrush="Black">
+            <ListView Margin="10,0,10,0" ItemsSource="{Binding Projekter}" SelectedItem="{Binding SelectedProject, Mode=TwoWay}" Height="300" Width="300" BorderThickness="1" BorderBrush="Black">
               <ListView.ItemTemplate>
                   <DataTemplate>
                       <!-- Styler elementer i listen -->
                       <StackPanel Orientation="Vertical">
-                          <TextBlock Text ="{Binding Name}" FontSize="20" FontWeight="Bold"></TextBlock>                         
-                          <StackPanel Orientation="Horizontal" > <TextBlock Text="{Binding Description}"></TextBlock></StackPanel>                         
+                          <StackPanel Orientation="Horizontal" Spacing="15">
+                          <TextBlock Text ="{Binding Name}" FontSize="20" FontWeight="Bold" ></TextBlock> 
+                              <StackPanel Orientation="Horizontal">
+                                  <TextBlock Margin="0,5" Text="ID:"></TextBlock>
+                                  <TextBlock Margin="1,5" Text="{Binding ProjectNumber}" FontSize="15"></TextBlock>
+                              </StackPanel>                          
+                          </StackPanel>
+                              <StackPanel Orientation="Vertical">                                 
+                                 <TextBlock Text="{Binding Description}"></TextBlock>
+                                 <TextBlock Text="{Binding ProjektStartDate}"></TextBlock>
+                                 <TextBlock Text="{Binding ProjektEndDate}"></TextBlock>
+                              </StackPanel>                         
                       </StackPanel>
                   </DataTemplate>
               </ListView.ItemTemplate>
@@ -33,9 +43,10 @@
               <TextBox Text="{Binding ProjectBox, Mode=TwoWay}" Margin="40,0,10,0" Width="200" PlaceholderText="Projekt navn"></TextBox>            
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <TextBox Text="{Binding DescriptionBox, Mode=TwoWay}" Margin="2,0,10,0" Width="200" PlaceholderText="Projekt beskrivelse"></TextBox>
+                <TextBox Text="{Binding DescriptionBox, Mode=TwoWay}" Margin="2,0,10,0" Width="200" PlaceholderText="Projekt beskrivelse"></TextBox>              
             </StackPanel>
             <StackPanel>
+                <DatePicker></DatePicker>
                 <Button Content="Tilføj projekt" Width="120" Margin="90,5,0,0" Command="{Binding AddProjectRelayCommand}"></Button>
             </StackPanel>
          </StackPanel>
@@ -43,7 +54,7 @@
          <!--Boksen med deltagere-->
          <StackPanel Orientation="Vertical" MinHeight="20" MinWidth="20">
              <TextBlock Text="Deltagere" FontSize="30" FontWeight="SemiBold"></TextBlock>
-             <ListView Margin="10,0,10,0" ItemsSource="{Binding SelectedProject.Deltager1}" Height="200" Width="300" BorderThickness="1" BorderBrush="Black">
+             <ListView Margin="10,0,10,0" ItemsSource="{Binding SelectedProject.Deltager1}" Height="300" Width="300" BorderThickness="1" BorderBrush="Black">
                  <ListView.ItemTemplate>
                      <DataTemplate>
                          <!-- Styler elementer i listen -->
@@ -70,7 +81,7 @@
         <!--Boksen med dimser-->
         <StackPanel Orientation="Vertical" >
             <TextBlock Text="Dims" FontSize="30" FontWeight="SemiBold"></TextBlock>
-            <ListView Margin="10,0,10,0" ItemsSource="{Binding SelectedProject.Dims}" Height="200" Width="300" BorderThickness="1" BorderBrush="Black">
+            <ListView Margin="10,0,10,0" ItemsSource="{Binding SelectedProject.Dims}" Height="300" Width="300" BorderThickness="1" BorderBrush="Black">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <!-- Styler elementer i listen -->
